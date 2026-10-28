@@ -33,9 +33,12 @@ function resolveFieldValues(
   inputs: readonly ConfirmationDialogField[] | undefined,
   edited: Record<string, string>
 ): Record<string, string> {
-  const values: Record<string, string> = {}
+  // Why: quick-command argument names become field ids, and `{{constructor}}` must not read Object.prototype.
+  const values: Record<string, string> = Object.create(null)
   for (const field of inputs ?? []) {
-    values[field.id] = edited[field.id] ?? field.defaultValue ?? ''
+    values[field.id] = Object.hasOwn(edited, field.id)
+      ? edited[field.id]
+      : (field.defaultValue ?? '')
   }
   return values
 }
