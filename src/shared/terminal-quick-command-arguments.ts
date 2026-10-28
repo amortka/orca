@@ -66,8 +66,9 @@ export function applyTerminalQuickCommandArguments(
   text: string,
   values: Readonly<Record<string, string>>
 ): string {
+  // Why: a line break in a value would submit a partial command line in the terminal.
   return text.replace(ARGUMENT_TOKEN_RE, (token, name: string) =>
-    Object.hasOwn(values, name) ? values[name] : token
+    Object.hasOwn(values, name) ? values[name].replace(/[\r\n]+/g, ' ') : token
   )
 }
 

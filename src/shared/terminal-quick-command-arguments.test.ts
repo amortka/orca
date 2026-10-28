@@ -38,4 +38,10 @@ describe('terminal quick command arguments', () => {
       })
     ).toBe('kubectl --context prod -n prod ')
   })
+
+  it('collapses line breaks in values so a run never submits a partial line', () => {
+    expect(applyTerminalQuickCommandArguments('grep {{q}} log', { q: 'a\r\nb' })).toBe(
+      'grep a b log'
+    )
+  })
 })
