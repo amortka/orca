@@ -35,7 +35,13 @@ export function launchMobileSessionQuickCommand(
   // Why: mobile has no argument prompt yet; running would send literal `{{name}}` tokens.
   if (getTerminalQuickCommandArguments(command).length > 0) {
     triggerError()
-    scope.showToast('Run quick commands with arguments from desktop', 1800)
+    scope.showToast(
+      translate(
+        'session.quickCommandLaunch.argumentsNeedDesktop',
+        'Run quick commands with arguments from desktop'
+      ),
+      1800
+    )
     return false
   }
   const launch = buildMobileQuickCommandLaunch(command)
