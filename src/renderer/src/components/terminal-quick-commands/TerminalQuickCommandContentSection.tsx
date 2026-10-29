@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/select'
 import { AgentIcon } from '@/lib/agent-catalog'
 import { cn } from '@/lib/utils'
-import { translate } from '@/i18n/i18n'
+import { getIntlLocale, translate } from '@/i18n/i18n'
 import { parseTerminalQuickCommandArguments } from '../../../../shared/terminal-quick-command-arguments'
 import { getTerminalQuickCommandAgentOptions } from './terminal-quick-command-agent-options'
 import type { TerminalQuickCommandDialogDraftMemory } from './terminal-quick-command-dialog-draft'
@@ -51,7 +51,10 @@ function getBodyLengthLabel(bodySize: TerminalQuickCommandBodySize): string {
   return translate(
     'auto.components.terminal.quick.commands.TerminalQuickCommandDialog.length_count',
     '{{value0}} / {{value1}} characters',
-    { value0: bodySize.used.toLocaleString(), value1: bodySize.max.toLocaleString() }
+    {
+      value0: bodySize.used.toLocaleString(getIntlLocale()),
+      value1: bodySize.max.toLocaleString(getIntlLocale())
+    }
   )
 }
 
