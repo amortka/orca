@@ -241,7 +241,9 @@ export function ConfirmationDialogProvider({
                         onKeyDown={(event) => {
                           if (event.key === 'Enter') {
                             event.preventDefault()
-                            settleActiveRequest(true)
+                            if (!(guarded && event.repeat)) {
+                              settleActiveRequest(true)
+                            }
                           }
                         }}
                       />
